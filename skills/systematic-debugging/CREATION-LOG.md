@@ -1,119 +1,119 @@
-# Creation Log: Systematic Debugging Skill
+#创作日志：系统调试技巧
 
-Reference example of extracting, structuring, and bulletproofing a critical skill.
+提取、结构化和防弹关键技能的参考示例。
 
-## Source Material
+## 源材料
 
-Extracted debugging framework from `/Users/jesse/.claude/CLAUDE.md`:
-- 4-phase systematic process (Investigation → Pattern Analysis → Hypothesis → Implementation)
-- Core mandate: ALWAYS find root cause, NEVER fix symptoms
-- Rules designed to resist time pressure and rationalization
+从 `/Users/jesse/.claude/CLAUDE.md` 中提取调试框架：
+- 4阶段系统过程（调查→模式分析→假设→实施）
+- 核心任务：始终找到根本原因，绝不解决症状
+- 旨在抵抗时间压力和合理化的规则
 
-## Extraction Decisions
+## 提取决策
 
-**What to include:**
-- Complete 4-phase framework with all rules
-- Anti-shortcuts ("NEVER fix symptom", "STOP and re-analyze")
-- Pressure-resistant language ("even if faster", "even if I seem in a hurry")
-- Concrete steps for each phase
+**要包括什么：**
+- 包含所有规则的完整 4 阶段框架
+- 反捷径（“永远不要修复症状”，“停止并重新分析”）
+- 抗压语言（“即使更快”，“即使我看起来很匆忙”）
+- 每个阶段的具体步骤
 
-**What to leave out:**
-- Project-specific context
-- Repetitive variations of same rule
-- Narrative explanations (condensed to principles)
+**要省略什么：**
+- 项目特定背景
+- 同一规则的重复变化
+- 叙述性解释（浓缩为原则）
 
-## Structure Following skill-creation/SKILL.md
+## 结构遵循技能创建/SKILL.md
 
-1. **Rich when_to_use** - Included symptoms and anti-patterns
-2. **Type: technique** - Concrete process with steps
-3. **Keywords** - "root cause", "symptom", "workaround", "debugging", "investigation"
-4. **Flowchart** - Decision point for "fix failed" → re-analyze vs add more fixes
-5. **Phase-by-phase breakdown** - Scannable checklist format
-6. **Anti-patterns section** - What NOT to do (critical for this skill)
+1. **丰富的何时使用** - 包括症状和反模式
+2. **类型：技术** - 带步骤的具体过程
+3. **关键字** - “根本原因”、“症状”、“解决方法”、“调试”、“调查”
+4. **流程图** - “修复失败”的决策点 → 重新分析 vs 添加更多修复
+5. **逐阶段细分** - 可扫描的清单格式
+6. **反模式部分** - 不该做什么（对于此技能至关重要）
 
-## Bulletproofing Elements
+## 防弹元素
 
-Framework designed to resist rationalization under pressure:
+旨在抵抗压力下合理化的框架：
 
-### Language Choices
-- "ALWAYS" / "NEVER" (not "should" / "try to")
-- "even if faster" / "even if I seem in a hurry"
-- "STOP and re-analyze" (explicit pause)
-- "Don't skip past" (catches the actual behavior)
+### 语言选择
+- “总是”/“从不”（不是“应该”/“尝试”）
+-“即使更快”/“即使我看起来很匆忙”
+- “停止并重新分析”（明确暂停）
+- “不要跳过”（捕捉实际行为）
 
-### Structural Defenses
-- **Phase 1 required** - Can't skip to implementation
-- **Single hypothesis rule** - Forces thinking, prevents shotgun fixes
-- **Explicit failure mode** - "IF your first fix doesn't work" with mandatory action
-- **Anti-patterns section** - Shows exactly what shortcuts look like
+### 结构防御
+- **需要第 1 阶段** - 无法跳至实施
+- **单一假设规则** - 强制思考，防止霰弹枪修复
+- **显式故障模式** - “如果您的第一个修复不起作用”并强制执行操作
+- **反模式部分** - 准确显示快捷方式的样子
 
-### Redundancy
-- Root cause mandate in overview + when_to_use + Phase 1 + implementation rules
-- "NEVER fix symptom" appears 4 times in different contexts
-- Each phase has explicit "don't skip" guidance
+### 冗余
+- 概述中的根本原因授权+何时使用+第一阶段+实施规则
+- “永远不要修复症状”在不同的上下文中出现 4 次
+- 每个阶段都有明确的“不要跳过”指导
 
-## Testing Approach
+## 测试方法
 
-Created 4 validation tests following skills/meta/testing-skills-with-subagents:
+根据 Skills/meta/testing-skills-with-subagents 创建了 4 个验证测试：
 
-### Test 1: Academic Context (No Pressure)
-- Simple bug, no time pressure
-- **Result:** Perfect compliance, complete investigation
+### 测试 1：学术背景（无压力）
+- 简单的错误，没有时间压力
+- **结果：** 完美合规，完成调查
 
-### Test 2: Time Pressure + Obvious Quick Fix
-- User "in a hurry", symptom fix looks easy
-- **Result:** Resisted shortcut, followed full process, found real root cause
+### 测试 2：时间压力 + 明显的快速修复
+- 用户“着急”，症状修复看起来很容易
+- **结果：** 抵制捷径，遵循完整流程，找到真正的根本原因
 
-### Test 3: Complex System + Uncertainty
-- Multi-layer failure, unclear if can find root cause
-- **Result:** Systematic investigation, traced through all layers, found source
+### 测试 3：复杂系统 + 不确定性
+- 多层故障，不清楚是否能找到根本原因
+- **结果：** 系统排查，层层追溯，找到源头
 
-### Test 4: Failed First Fix
-- Hypothesis doesn't work, temptation to add more fixes
-- **Result:** Stopped, re-analyzed, formed new hypothesis (no shotgun)
+### 测试 4：第一次修复失败
+- 假设不起作用，诱惑添加更多修复
+- **结果：** 停止，重新分析，形成新的假设（没有霰弹枪）
 
-**All tests passed.** No rationalizations found.
+**所有测试均通过。** 未发现合理化理由。
 
-## Iterations
+## 迭代
 
-### Initial Version
-- Complete 4-phase framework
-- Anti-patterns section
-- Flowchart for "fix failed" decision
+### 初始版本
+- 完整的4阶段框架
+- 反模式部分
+- “修复失败”决策的流程图
 
-### Enhancement 1: TDD Reference
-- Added link to skills/testing/test-driven-development
-- Note explaining TDD's "simplest code" ≠ debugging's "root cause"
-- Prevents confusion between methodologies
+### 增强功能 1：TDD 参考
+- 添加了技能/测试/测试驱动开发的链接
+- 注意解释 TDD 的“最简单代码”≠调试的“根本原因”
+- 防止方法之间的混淆
 
-## Final Outcome
+## 最终结果
 
-Bulletproof skill that:
-- ✅ Clearly mandates root cause investigation
-- ✅ Resists time pressure rationalization
-- ✅ Provides concrete steps for each phase
-- ✅ Shows anti-patterns explicitly
-- ✅ Tested under multiple pressure scenarios
-- ✅ Clarifies relationship to TDD
-- ✅ Ready for use
+防弹技能是：
+- ✅ 明确要求根本原因调查
+- ✅ 抵抗时间压力合理化
+- ✅ 提供每个阶段的具体步骤
+- ✅ 明确显示反模式
+- ✅ 在多种压力场景下进行测试
+- ✅ 阐明与 TDD 的关系
+- ✅ 即可使用
 
-## Key Insight
+## 关键见解
 
-**Most important bulletproofing:** Anti-patterns section showing exact shortcuts that feel justified in the moment. When Claude thinks "I'll just add this one quick fix", seeing that exact pattern listed as wrong creates cognitive friction.
+**最重要的防弹：** 反模式部分显示了目前感觉合理的确切快捷方式。当克劳德认为“我只需添加一个快速解决方案”时，看到被列为错误的确切模式会产生认知摩擦。
 
-## Usage Example
+## 使用示例
 
-When encountering a bug:
-1. Load skill: skills/debugging/systematic-debugging
-2. Read overview (10 sec) - reminded of mandate
-3. Follow Phase 1 checklist - forced investigation
-4. If tempted to skip - see anti-pattern, stop
-5. Complete all phases - root cause found
+遇到bug时：
+1.加载技能：技能/调试/系统调试
+2. 阅读概述（10 秒）- 提醒任务
+3. 遵循第一阶段清单 - 强制调查
+4. 如果想跳过 - 看到反模式，请停止
+5. 完成所有阶段 - 找到根本原因
 
-**Time investment:** 5-10 minutes
-**Time saved:** Hours of symptom-whack-a-mole
+**时间投入：** 5-10 分钟
+**节省的时间：** 打地鼠症状的小时数
 
 ---
 
-*Created: 2025-10-03*
-*Purpose: Reference example for skill extraction and bulletproofing*
+*创建时间：2025-10-03*
+*用途：技能提取和防弹参考示例*

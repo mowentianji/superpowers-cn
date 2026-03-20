@@ -1,12 +1,12 @@
-# Condition-Based Waiting
+# 基于条件的等待
 
-## Overview
+## 概述
 
-Flaky tests often guess at timing with arbitrary delays. This creates race conditions where tests pass on fast machines but fail under load or in CI.
+不稳定的测试经常会猜测任意延迟的时间。这会产生竞争条件，测试在快速机器上通过，但在负载或 CI 中失败。
 
-**Core principle:** Wait for the actual condition you care about, not a guess about how long it takes.
+**核心原则：** 等待你关心的实际情况，而不是猜测需要多长时间。
 
-## When to Use
+## 何时使用
 
 ```dot
 digraph when_to_use {
@@ -21,17 +21,17 @@ digraph when_to_use {
 }
 ```
 
-**Use when:**
-- Tests have arbitrary delays (`setTimeout`, `sleep`, `time.sleep()`)
-- Tests are flaky (pass sometimes, fail under load)
-- Tests timeout when run in parallel
-- Waiting for async operations to complete
+**使用时间：**
+- 测试有任意延迟（`setTimeout`、`sleep`、`time.sleep()`）
+- 测试不稳定（有时通过，在负载下失败）
+- 并行运行时测试超时
+- 等待异步操作完成
 
-**Don't use when:**
-- Testing actual timing behavior (debounce, throttle intervals)
-- Always document WHY if using arbitrary timeout
+**请勿在以下情况下使用：**
+- 测试实际计时行为（去抖、油门间隔）
+- 如果使用任意超时，请始终记录原因
 
-## Core Pattern
+## 核心模式
 
 ```typescript
 // ❌ BEFORE: Guessing at timing
@@ -45,19 +45,19 @@ const result = getResult();
 expect(result).toBeDefined();
 ```
 
-## Quick Patterns
+## 快速模式
 
-| Scenario | Pattern |
+|场景 |图案|
 |----------|---------|
-| Wait for event | `waitFor(() => events.find(e => e.type === 'DONE'))` |
-| Wait for state | `waitFor(() => machine.state === 'ready')` |
-| Wait for count | `waitFor(() => items.length >= 5)` |
-| Wait for file | `waitFor(() => fs.existsSync(path))` |
-| Complex condition | `waitFor(() => obj.ready && obj.value > 10)` |
+|等待活动 | `waitFor(() => events.find(e => e.type === 'DONE'))` |
+|等待状态 | `waitFor(() => machine.state === 'ready')` |
+|等待计数| `waitFor(() => items.length >= 5)` |
+|等待文件 | `waitFor(() => fs.existsSync(path))` |
+|复杂情况 | `waitFor(() => obj.ready && obj.value > 10)` |
 
-## Implementation
+## 实施
 
-Generic polling function:
+通用轮询功能：
 ```typescript
 async function waitFor<T>(
   condition: () => T | undefined | null | false,
@@ -79,20 +79,20 @@ async function waitFor<T>(
 }
 ```
 
-See `condition-based-waiting-example.ts` in this directory for complete implementation with domain-specific helpers (`waitForEvent`, `waitForEventCount`, `waitForEventMatch`) from actual debugging session.
+请参阅此目录中的 `condition-based-waiting-example.ts`，以了解实际调试会话中特定于域的帮助程序（`waitForEvent`、`waitForEventCount`、`waitForEventMatch`）的完整实现。
 
-## Common Mistakes
+## 常见错误
 
-**❌ Polling too fast:** `setTimeout(check, 1)` - wastes CPU
-**✅ Fix:** Poll every 10ms
+**❌ 轮询太快：** `setTimeout(check, 1)` - 浪费 CPU
+**✅ 修复：** 每 10 毫秒轮询一次
 
-**❌ No timeout:** Loop forever if condition never met
-**✅ Fix:** Always include timeout with clear error
+**❌ 无超时：** 如果条件从未满足则永远循环
+**✅ 修复：** 始终包含带有明显错误的超时
 
-**❌ Stale data:** Cache state before loop
-**✅ Fix:** Call getter inside loop for fresh data
+**❌ 陈旧数据：** 循环之前的缓存状态
+**✅ 修复：** 在循环内调用 getter 获取新数据
 
-## When Arbitrary Timeout IS Correct
+## 当任意超时正确时
 
 ```typescript
 // Tool ticks every 100ms - need 2 ticks to verify partial output
@@ -101,15 +101,15 @@ await new Promise(r => setTimeout(r, 200));   // Then: wait for timed behavior
 // 200ms = 2 ticks at 100ms intervals - documented and justified
 ```
 
-**Requirements:**
-1. First wait for triggering condition
-2. Based on known timing (not guessing)
-3. Comment explaining WHY
+**要求：**
+1.首先等待触发条件
+2.基于已知的时间（不是猜测）
+3. 评论解释原因
 
-## Real-World Impact
+## 现实世界的影响
 
-From debugging session (2025-10-03):
-- Fixed 15 flaky tests across 3 files
-- Pass rate: 60% → 100%
-- Execution time: 40% faster
-- No more race conditions
+来自调试会话（2025-10-03）：
+- 修复了 3 个文件中的 15 个不稳定测试
+- 通过率：60% → 100%
+- 执行时间：快 40%
+- 不再有比赛条件

@@ -1,26 +1,20 @@
-# Code Quality Reviewer Prompt Template
+# 代码质量审查子代理模板
 
-Use this template when dispatching a code quality reviewer subagent.
+派发代码质量审查子代理时使用此模板。
 
-**Purpose:** Verify implementation is well-built (clean, tested, maintainable)
+**目的：** 验证实现方式是否足够优秀：代码干净、测试有效、结构可维护。
 
-**Only dispatch after spec compliance review passes.**
+**只有在规格符合性审查通过后，才允许发起这一审查。**
 
+```text
+Task tool（superpowers:code-reviewer）:
+  使用模板：requesting-code-review/code-reviewer.md
+
+  WHAT_WAS_IMPLEMENTED: [来自实现者汇报]
+  PLAN_OR_REQUIREMENTS: [plan-file] 中的任务 N
+  BASE_SHA: [任务开始前的提交]
+  HEAD_SHA: [当前提交]
+  DESCRIPTION: [任务摘要]
 ```
-Task tool (superpowers:code-reviewer):
-  Use template at requesting-code-review/code-reviewer.md
 
-  WHAT_WAS_IMPLEMENTED: [from implementer's report]
-  PLAN_OR_REQUIREMENTS: Task N from [plan-file]
-  BASE_SHA: [commit before task]
-  HEAD_SHA: [current commit]
-  DESCRIPTION: [task summary]
-```
-
-**In addition to standard code quality concerns, the reviewer should check:**
-- Does each file have one clear responsibility with a well-defined interface?
-- Are units decomposed so they can be understood and tested independently?
-- Is the implementation following the file structure from the plan?
-- Did this implementation create new files that are already large, or significantly grow existing files? (Don't flag pre-existing file sizes — focus on what this change contributed.)
-
-**Code reviewer returns:** Strengths, Issues (Critical/Important/Minor), Assessment
+**代码审查子代理的返回内容应包括：** 优点、问题（严重 / 重要 / 次要）、总体评估。

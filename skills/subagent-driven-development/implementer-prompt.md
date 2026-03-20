@@ -1,113 +1,78 @@
-# Implementer Subagent Prompt Template
+# 实现子代理提示模板
 
-Use this template when dispatching an implementer subagent.
+派发实现子代理时使用此模板。
 
-```
-Task tool (general-purpose):
-  description: "Implement Task N: [task name]"
+```text
+Task tool（通用任务类型）:
+  description: "实现任务 N：[任务名称]"
   prompt: |
-    You are implementing Task N: [task name]
+    你正在实现任务 N：[任务名称]
 
-    ## Task Description
+    ## 任务说明
 
-    [FULL TEXT of task from plan - paste it here, don't make subagent read file]
+    [在这里粘贴计划中该任务的**完整全文**，不要让子代理自己去读文件]
 
-    ## Context
+    ## 上下文
 
-    [Scene-setting: where this fits, dependencies, architectural context]
+    [说明这个任务在整体方案中的位置、依赖关系、架构背景]
 
-    ## Before You Begin
+    ## 开始前
 
-    If you have questions about:
-    - The requirements or acceptance criteria
-    - The approach or implementation strategy
-    - Dependencies or assumptions
-    - Anything unclear in the task description
+    如果你对以下内容有疑问：
+    - 需求或验收标准
+    - 实现思路或技术方案
+    - 依赖关系或前置假设
+    - 任务描述里任何不清楚的地方
 
-    **Ask them now.** Raise any concerns before starting work.
+    **现在就提出问题。** 在开始动手之前，把疑问和风险都提出来。
 
-    ## Your Job
+    ## 你的职责
 
-    Once you're clear on requirements:
-    1. Implement exactly what the task specifies
-    2. Write tests (following TDD if task says to)
-    3. Verify implementation works
-    4. Commit your work
-    5. Self-review (see below)
-    6. Report back
+    当你已经明确需求后：
+    1. 严格按任务要求实现
+    2. 编写测试（如果任务要求 TDD，就遵循 TDD）
+    3. 验证实现确实可用
+    4. 提交本次变更
+    5. 自查代码（见下方）
+    6. 汇报结果
 
-    Work from: [directory]
+    工作目录：[directory]
 
-    **While you work:** If you encounter something unexpected or unclear, **ask questions**.
-    It's always OK to pause and clarify. Don't guess or make assumptions.
+    **执行过程中：** 如果遇到任何意外情况或不明确之处，**立即提问**。
+    允许暂停并澄清；不要猜测，也不要自行脑补需求。
 
-    ## Code Organization
+    ## 汇报前：先做自查
 
-    You reason best about code you can hold in context at once, and your edits are more
-    reliable when files are focused. Keep this in mind:
-    - Follow the file structure defined in the plan
-    - Each file should have one clear responsibility with a well-defined interface
-    - If a file you're creating is growing beyond the plan's intent, stop and report
-      it as DONE_WITH_CONCERNS — don't split files on your own without plan guidance
-    - If an existing file you're modifying is already large or tangled, work carefully
-      and note it as a concern in your report
-    - In existing codebases, follow established patterns. Improve code you're touching
-      the way a good developer would, but don't restructure things outside your task.
+    用全新的眼光检查你的工作，问自己：
 
-    ## When You're in Over Your Head
+    **完整性：**
+    - 我是否完整实现了规格里的所有内容？
+    - 有没有遗漏的需求？
+    - 有没有未覆盖的边界情况？
 
-    It is always OK to stop and say "this is too hard for me." Bad work is worse than
-    no work. You will not be penalized for escalating.
+    **质量：**
+    - 这是我当前能交付的最好版本吗？
+    - 命名是否清晰准确（描述“它做什么”，而不是“它怎么做”）？
+    - 代码是否干净、可维护？
 
-    **STOP and escalate when:**
-    - The task requires architectural decisions with multiple valid approaches
-    - You need to understand code beyond what was provided and can't find clarity
-    - You feel uncertain about whether your approach is correct
-    - The task involves restructuring existing code in ways the plan didn't anticipate
-    - You've been reading file after file trying to understand the system without progress
+    **纪律：**
+    - 我是否避免了过度实现（YAGNI）？
+    - 我是否只实现了被要求的内容？
+    - 我是否遵循了代码库现有模式？
 
-    **How to escalate:** Report back with status BLOCKED or NEEDS_CONTEXT. Describe
-    specifically what you're stuck on, what you've tried, and what kind of help you need.
-    The controller can provide more context, re-dispatch with a more capable model,
-    or break the task into smaller pieces.
+    **测试：**
+    - 测试是否真的验证了行为，而不是只验证 mock？
+    - 如果要求 TDD，我是否遵循了它？
+    - 测试是否足够完整？
 
-    ## Before Reporting Back: Self-Review
+    如果你在自查中发现问题，请先修复，再汇报。
 
-    Review your work with fresh eyes. Ask yourself:
+    ## 汇报格式
 
-    **Completeness:**
-    - Did I fully implement everything in the spec?
-    - Did I miss any requirements?
-    - Are there edge cases I didn't handle?
-
-    **Quality:**
-    - Is this my best work?
-    - Are names clear and accurate (match what things do, not how they work)?
-    - Is the code clean and maintainable?
-
-    **Discipline:**
-    - Did I avoid overbuilding (YAGNI)?
-    - Did I only build what was requested?
-    - Did I follow existing patterns in the codebase?
-
-    **Testing:**
-    - Do tests actually verify behavior (not just mock behavior)?
-    - Did I follow TDD if required?
-    - Are tests comprehensive?
-
-    If you find issues during self-review, fix them now before reporting.
-
-    ## Report Format
-
-    When done, report:
-    - **Status:** DONE | DONE_WITH_CONCERNS | BLOCKED | NEEDS_CONTEXT
-    - What you implemented (or what you attempted, if blocked)
-    - What you tested and test results
-    - Files changed
-    - Self-review findings (if any)
-    - Any issues or concerns
-
-    Use DONE_WITH_CONCERNS if you completed the work but have doubts about correctness.
-    Use BLOCKED if you cannot complete the task. Use NEEDS_CONTEXT if you need
-    information that wasn't provided. Never silently produce work you're unsure about.
+    完成后，请按下面结构汇报：
+    - 已实现内容
+    - 已执行的测试与测试结果
+    - 变更文件
+    - 自查发现的问题（如果有）
+    - 仍需关注的事项或风险
 ```
